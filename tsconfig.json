@@ -16,6 +16,6 @@
     "noImplicitReturns": true,
     "skipLibCheck": true
   },
-  "extends": "astro/tsconfigs/base"
+  "extends": "astro/tsconfigs/strict"
   // "extends": "astro/tsconfigs/strict"
 }
