@@ -1,5 +1,5 @@
 import { Canvas, useThree } from "@react-three/fiber";
-import { CameraControls, useGLTF } from "@react-three/drei";
+import { CameraControls, useGLTF, useTexture } from "@react-three/drei";
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import type { GLTF } from "three-stdlib";
@@ -9,7 +9,7 @@ type GLTFResult = GLTF & {
         Cylinder: THREE.Mesh;
     };
     materials: {
-        QuartziteDenali002_8K: THREE.MeshStandardMaterial;
+        ["Material.002"]: THREE.MeshStandardMaterial;
     };
 };
 
@@ -30,13 +30,14 @@ const Model = (props: JSX.IntrinsicElements["group"]) => {
     }
   }, [controls]);
     const { nodes, materials } = useGLTF("models/lower_podium.glb") as GLTFResult;
+    
     return (
         <group {...props} dispose={null}>
             <mesh ref={meshRef}
                 castShadow
                 receiveShadow
                 geometry={nodes.Cylinder.geometry}
-                material={materials.QuartziteDenali002_8K}
+                material={materials["Material.002"]}
             />
             <CameraControls makeDefault />
         </group>
