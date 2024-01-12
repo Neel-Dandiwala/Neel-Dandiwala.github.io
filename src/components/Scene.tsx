@@ -1,6 +1,6 @@
 import { Canvas, useThree, useFrame } from "@react-three/fiber";
 import { Color, AdditiveBlending } from 'three'
-import { CameraControls, useGLTF, useTexture, shaderMaterial, MeshReflectorMaterial } from "@react-three/drei";
+import { CameraControls, useGLTF, useTexture, shaderMaterial, MeshReflectorMaterial, SpotLight } from "@react-three/drei";
 import React, { forwardRef, useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import type { GLTF } from "three-stdlib";
@@ -198,14 +198,19 @@ export const Fiber = () => {
         <directionalLight position={[10, 10, 5]} intensity={2} />
         <directionalLight position={[-10, -10, -5]} intensity={1} />
         {/* <fog attach="fog" args={['#050505', 5, 100]} /> */}
-        <spotLight
-          position={[0, 6, 0]}
-          
-          angle={Math.PI / 4} // Adjust the angle of the spotlight
-          penumbra={1} // Softness of the spotlight edges
-          decay={1}
-          castShadow
-        />
+        <SpotLight
+      position={[0, 10, 0]}
+      angle={Math.PI / 1.25}
+      penumbra={1}
+      decay={5}
+      distance={100}
+      castShadow
+      shadow-mapSize-width={1024}
+      shadow-mapSize-height={1024}
+      shadow-camera-near={1}
+      shadow-camera-far={100}
+    
+    />
         <UpperFloor />
         <UpperPodium />
         <UpperLight />
