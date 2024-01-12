@@ -204,7 +204,7 @@ const Education = () => {
   const imageUrl = 'images/education.png';
   const texture = useTexture(imageUrl);
   return (
-    <mesh position={[5, 3, 0]} scale={[0.5, 0.5, 1]} rotation={[0, -Math.PI / 2, 0]}>
+    <mesh position={[8.5, 3, 0]} scale={[0.5, 0.5, 1]} rotation={[0, -Math.PI / 2, 0]}>
       <planeGeometry args={[16, 10]} />
       <meshBasicMaterial map={texture} />
     </mesh>
@@ -215,7 +215,7 @@ const Skills = () => {
   const imageUrl = 'images/skills.png';
   const texture = useTexture(imageUrl);
   return (
-    <mesh position={[3.1174490092936677, 3, 3.909157412340149]} scale={[0.5, 0.5, 1]} rotation={[0, -Math.PI / 1.25, 0]}>
+    <mesh position={[5.299663315799235, 3, 6.645567600978254]} scale={[0.5, 0.5, 1]} rotation={[0, -Math.PI / 1.25, 0]}>
       <planeGeometry args={[16, 10]} />
       <meshBasicMaterial map={texture} />
     </mesh>
@@ -226,7 +226,7 @@ const Projects = () => {
   const imageUrl = 'images/projects.png';
   const texture = useTexture(imageUrl);
   return (
-    <mesh position={[-1.1126046697815717, 3, 4.874639560909118]} scale={[0.5, 0.5, 1]} rotation={[0, Math.PI / 1.15, 0]}>
+    <mesh position={[-1.8914279386286719, 3, 8.286887253545501]} scale={[0.5, 0.5, 1]} rotation={[0, Math.PI / 1.1, 0]}>
       <planeGeometry args={[16, 10]} />
       <meshBasicMaterial map={texture} />
     </mesh>
@@ -237,7 +237,7 @@ const Experience = () => {
   const imageUrl = 'images/experience.png';
   const texture = useTexture(imageUrl);
   return (
-    <mesh position={[-4.504844339512095, 3, 2.169418695587791]} scale={[0.5, 0.5, 1]} rotation={[0, Math.PI / 1.75, 0]}>
+    <mesh position={[-7.658235377170562, 3, 3.688011782499245]} scale={[0.5, 0.5, 1]} rotation={[0, Math.PI / 1.6, 0]}>
       <planeGeometry args={[16, 10]} />
       <meshBasicMaterial map={texture} />
     </mesh>
@@ -248,7 +248,7 @@ const Achievements = () => {
   const imageUrl = 'images/achievements.png';
   const texture = useTexture(imageUrl);
   return (
-    <mesh position={[-4.504844339512096, 3, -2.16941869558779]} scale={[0.5, 0.5, 1]} rotation={[0, Math.PI / 2.75, 0]}>
+    <mesh position={[-7.658235377170563, 3, -3.688011782499243]} scale={[0.5, 0.5, 1]} rotation={[0, Math.PI / 2.75, 0]}>
       <planeGeometry args={[16, 10]} />
       <meshBasicMaterial map={texture} />
     </mesh>
@@ -259,7 +259,7 @@ const Volunteer = () => {
   const imageUrl = 'images/volunteer.png';
   const texture = useTexture(imageUrl);
   return (
-    <mesh position={[-1.112604669781573, 3, -4.874639560909118]} scale={[0.5, 0.5, 1]} rotation={[0, Math.PI * 2.125, 0]}>
+    <mesh position={[-1.891427938628674, 3, -8.286887253545501]} scale={[0.5, 0.5, 1]} rotation={[0, Math.PI * 2.1, 0]}>
       <planeGeometry args={[16, 10]} />
       <meshBasicMaterial map={texture} />
     </mesh>
@@ -270,7 +270,7 @@ const Contact = () => {
   const imageUrl = 'images/contact.png';
   const texture = useTexture(imageUrl);
   return (
-    <mesh position={[3.117449009293667, 3, -3.9091574123401496]} scale={[0.5, 0.5, 1]} rotation={[0, -Math.PI * 2.125, 0]}>
+    <mesh position={[5.299663315799234, 3, -6.6455676009782545]} scale={[0.5, 0.5, 1]} rotation={[0, -Math.PI * 2.2, 0]}>
       <planeGeometry args={[16, 10]} />
       <meshBasicMaterial map={texture} />
     </mesh>
