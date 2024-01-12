@@ -1,6 +1,6 @@
 import { Canvas, useThree, useFrame } from "@react-three/fiber";
 import { Color, AdditiveBlending } from 'three'
-import { CameraControls, useGLTF, useTexture, shaderMaterial, MeshReflectorMaterial, SpotLight } from "@react-three/drei";
+import { CameraControls, useGLTF, useTexture, shaderMaterial, MeshReflectorMaterial, SpotLight, PerspectiveCamera } from "@react-three/drei";
 import React, { forwardRef, useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import type { GLTF } from "three-stdlib";
@@ -184,17 +184,112 @@ const UpperPodium = (props: JSX.IntrinsicElements["group"]) => {
 
 useGLTF.preload("models/upper_podium.glb");
 
+const Camera = () => {
+  const cameraRef = useRef<THREE.PerspectiveCamera>();
+  useFrame(({ clock }) => {
+    const elapsedTime = clock.getElapsedTime();
+    const radius = 10;
+    const center = new THREE.Vector3(0, 0, 0);
+    if(cameraRef.current){
+      cameraRef.current.position.x = center[0] + radius * Math.cos(elapsedTime);
+      cameraRef.current.position.z = center[2] + radius * Math.sin(elapsedTime);
+      cameraRef.current.lookAt(center);
+    }
+  });
+
+  return <PerspectiveCamera ref={cameraRef} position={[0, 5, 15]} fov={75} />;
+}
+
+const Education = () => {
+  const imageUrl = 'images/education.png';
+  const texture = useTexture(imageUrl);
+  return (
+    <mesh position={[5, 3, 0]} scale={[0.5, 0.5, 1]} rotation={[0, -Math.PI / 2, 0]}>
+      <planeGeometry args={[16, 10]} />
+      <meshBasicMaterial map={texture} />
+    </mesh>
+  )
+}
+
+const Skills = () => {
+  const imageUrl = 'images/skills.png';
+  const texture = useTexture(imageUrl);
+  return (
+    <mesh position={[3.1174490092936677, 3, 3.909157412340149]} scale={[0.5, 0.5, 1]} rotation={[0, -Math.PI / 1.25, 0]}>
+      <planeGeometry args={[16, 10]} />
+      <meshBasicMaterial map={texture} />
+    </mesh>
+  )
+}
+
+const Projects = () => {
+  const imageUrl = 'images/projects.png';
+  const texture = useTexture(imageUrl);
+  return (
+    <mesh position={[-1.1126046697815717, 3, 4.874639560909118]} scale={[0.5, 0.5, 1]} rotation={[0, Math.PI / 1.15, 0]}>
+      <planeGeometry args={[16, 10]} />
+      <meshBasicMaterial map={texture} />
+    </mesh>
+  )
+}
+
+const Experience = () => {
+  const imageUrl = 'images/experience.png';
+  const texture = useTexture(imageUrl);
+  return (
+    <mesh position={[-4.504844339512095, 3, 2.169418695587791]} scale={[0.5, 0.5, 1]} rotation={[0, Math.PI / 1.75, 0]}>
+      <planeGeometry args={[16, 10]} />
+      <meshBasicMaterial map={texture} />
+    </mesh>
+  )
+}
+
+const Achievements = () => {
+  const imageUrl = 'images/achievements.png';
+  const texture = useTexture(imageUrl);
+  return (
+    <mesh position={[-4.504844339512096, 3, -2.16941869558779]} scale={[0.5, 0.5, 1]} rotation={[0, Math.PI / 2.75, 0]}>
+      <planeGeometry args={[16, 10]} />
+      <meshBasicMaterial map={texture} />
+    </mesh>
+  )
+}
+
+const Volunteer = () => {
+  const imageUrl = 'images/volunteer.png';
+  const texture = useTexture(imageUrl);
+  return (
+    <mesh position={[-1.112604669781573, 3, -4.874639560909118]} scale={[0.5, 0.5, 1]} rotation={[0, Math.PI * 2.125, 0]}>
+      <planeGeometry args={[16, 10]} />
+      <meshBasicMaterial map={texture} />
+    </mesh>
+  )
+}
+
+const Contact = () => {
+  const imageUrl = 'images/contact.png';
+  const texture = useTexture(imageUrl);
+  return (
+    <mesh position={[3.117449009293667, 3, -3.9091574123401496]} scale={[0.5, 0.5, 1]} rotation={[0, -Math.PI * 2.125, 0]}>
+      <planeGeometry args={[16, 10]} />
+      <meshBasicMaterial map={texture} />
+    </mesh>
+  )
+}
+
 export const Fiber = () => {
     
     
     return (
       <Canvas
-        camera={{ position: [10, 5, 15], fov: 45 }}
+        // camera={{ position: [10, 5, 15], fov: 45 }}
         style={{ height: "100%" }}
       >
         <color attach="background" args={['#050505']} />
+        <Camera />
         <hemisphereLight intensity={0.5} />
         <ambientLight />
+        
         <directionalLight position={[10, 10, 5]} intensity={2} />
         <directionalLight position={[-10, -10, -5]} intensity={1} />
         {/* <fog attach="fog" args={['#050505', 5, 100]} /> */}
@@ -214,6 +309,13 @@ export const Fiber = () => {
         <UpperFloor />
         <UpperPodium />
         <UpperLight />
+        <Education />
+        <Skills />
+        <Projects />
+        <Experience />
+        <Achievements />
+        <Volunteer />
+        <Contact />
         <Face />
         <LowerPodium />
         <LowerLight />
