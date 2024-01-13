@@ -1,7 +1,6 @@
-import { Canvas, useThree, useFrame } from "@react-three/fiber";
-import { Color, AdditiveBlending } from 'three'
-import { CameraControls, useGLTF, useTexture, shaderMaterial, MeshReflectorMaterial, SpotLight, PerspectiveCamera } from "@react-three/drei";
-import React, { forwardRef, useEffect, useRef, useState } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { CameraControls, useGLTF, useTexture, MeshReflectorMaterial, SpotLight, PerspectiveCamera } from "@react-three/drei";
+import React, { forwardRef, useRef, useState } from "react";
 import * as THREE from "three";
 import type { GLTF } from "three-stdlib";
 import { EffectComposer, GodRays, Bloom } from "@react-three/postprocessing"
@@ -9,42 +8,42 @@ import { EffectComposer, GodRays, Bloom } from "@react-three/postprocessing"
 
 
 type LowerPodiumType = GLTF & {
-    nodes: {
-      Cylinder: THREE.Mesh;
-      PlantZZ001002: THREE.Mesh;
-    };
-    materials: {
-      ["Material.002"]: THREE.MeshStandardMaterial;
-      MyGold: THREE.MeshStandardMaterial;
-    };
+  nodes: {
+    Cylinder: THREE.Mesh;
+    PlantZZ001002: THREE.Mesh;
   };
-  
+  materials: {
+    Material: THREE.MeshStandardMaterial;
+    MyGold: THREE.MeshStandardMaterial;
+  };
+};
+
 const LowerPodium = (props: JSX.IntrinsicElements["group"]) => {
-    const { nodes, materials } = useGLTF("models/trial4.glb") as LowerPodiumType;
-    return (
-      <group {...props} dispose={null}>
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Cylinder.geometry}
-          material={materials["Material.002"]}
-          position={[0, 0.125, 0]}
-          scale={0.669}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PlantZZ001002.geometry}
-          material={materials.MyGold}
-          rotation={[-0.478, -0.124, 0.588]}
-          position={[-1, 0.75, -0.5]}
-          scale={1.749}
-        />
-      </group>
-    );
-  }
-  
-  useGLTF.preload("models/trial4.glb");
+  const { nodes, materials } = useGLTF("models/lower_podium.glb") as LowerPodiumType;
+  return (
+    <group {...props} dispose={null}>
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Cylinder.geometry}
+        material={materials.Material}
+        position={[0, 0.125, 0]}
+        scale={0.669}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PlantZZ001002.geometry}
+        material={materials.MyGold}
+        position={[-1, 0.75, -0.5]}
+        rotation={[-0.478, -0.124, 0.588]}
+        scale={1.749}
+      />
+    </group>
+  );
+}
+
+useGLTF.preload("models/lower_podium.glb");
 
 const LowerFloor = () => (
   <mesh position={[0, 0, 0]} receiveShadow rotation={[-Math.PI / 2, 0, 0]}>
@@ -79,7 +78,7 @@ const UpperFloor = () => (
       metalness={0.5} mirror={0}    />
   </mesh>
 )
-const LowerEmitter = forwardRef((props, forwardedRef) => {
+const LowerEmitter = forwardRef<any, any>((props, forwardedRef) => {
   return (
     <mesh ref={forwardedRef} position={[0, 0.125, 0]} rotation={[-Math.PI / 2, 0, 0]} {...props}>
       <circleGeometry args={[3, 32]} />
@@ -104,7 +103,7 @@ const LowerLight = () => {
   )
 }
 
-const UpperEmitter = forwardRef((props, forwardedRef) => {
+const UpperEmitter = forwardRef<any, any>((props, forwardedRef) => {
   return (
     <mesh ref={forwardedRef} position={[0, 6, 0]} rotation={[-Math.PI / 2, 0, 0]} {...props}>
       <circleGeometry args={[1.9, 32]} />
@@ -139,7 +138,7 @@ type FaceType = GLTF & {
 };
 
 const Face = (props: JSX.IntrinsicElements["group"]) => {
-  const { nodes, materials } = useGLTF("models/face2.glb") as FaceType;
+  const { nodes, materials } = useGLTF("models/face.glb") as FaceType;
   return (
     <group {...props} dispose={null}>
       <mesh
@@ -155,26 +154,26 @@ const Face = (props: JSX.IntrinsicElements["group"]) => {
   );
 }
 
-useGLTF.preload("models/face2.glb");
+useGLTF.preload("models/face.glb");
 
 type UpperPodiumType = GLTF & {
   nodes: {
     Cylinder001: THREE.Mesh;
   };
   materials: {
-    ["Material.001"]: THREE.MeshStandardMaterial;
+    Material: THREE.MeshStandardMaterial;
   };
 };
 
 const UpperPodium = (props: JSX.IntrinsicElements["group"]) => {
-  const { nodes, materials } = useGLTF("models/upper_podium.glb") as UpperPodiumType;
+  const { nodes, materials } = useGLTF("/models/upper_podium.glb") as UpperPodiumType;
   return (
     <group {...props} dispose={null}>
       <mesh
         castShadow
         receiveShadow
         geometry={nodes.Cylinder001.geometry}
-        material={materials["Material.001"]}
+        material={materials.Material}
         position={[0.08, 6, 0.018]}
         scale={0.669}
       />
@@ -182,7 +181,7 @@ const UpperPodium = (props: JSX.IntrinsicElements["group"]) => {
   );
 }
 
-useGLTF.preload("models/upper_podium.glb");
+useGLTF.preload("/models/upper_podium.glb");
 
 const Camera = () => {
   const cameraRef = useRef<THREE.PerspectiveCamera>();
