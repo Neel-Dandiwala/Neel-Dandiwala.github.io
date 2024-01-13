@@ -1,9 +1,9 @@
-import { Canvas, useFrame } from "@react-three/fiber";
-import { CameraControls, useGLTF, useTexture, MeshReflectorMaterial, SpotLight, PerspectiveCamera } from "@react-three/drei";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import {  useGLTF, useTexture, MeshReflectorMaterial, SpotLight, PerspectiveCamera } from "@react-three/drei";
 import React, { forwardRef, useRef, useState } from "react";
 import * as THREE from "three";
 import type { GLTF } from "three-stdlib";
-import { EffectComposer, GodRays, Bloom } from "@react-three/postprocessing"
+import { EffectComposer, GodRays, Bloom } from "@react-three/postprocessing";
 
 
 
@@ -196,8 +196,9 @@ const Camera = () => {
     }
   });
 
-  return <PerspectiveCamera ref={cameraRef} position={[0, 5, 15]} fov={75} />;
+  return <PerspectiveCamera ref={cameraRef} />;
 }
+
 
 const Education = () => {
   const imageUrl = 'images/education.png';
@@ -276,12 +277,35 @@ const Contact = () => {
   )
 }
 
+const CameraControls = () => {
+  const { camera } = useThree();
+  const [target] = useState(() => new THREE.Vector3(0, 2, 0));
+  const clock = useRef(new THREE.Clock());
+  const speedFactor = 0.075;
+
+  useFrame(() => {
+    const elapsedTime = clock.current.getElapsedTime();
+    const radius = 7; // Adjust the radius as needed
+
+    // Calculate new camera position in a circular path with speed factor
+    const newX = target.x + radius * Math.cos(elapsedTime * speedFactor);
+    const newY = Math.max(2, Math.min(4, target.y + 0.5 * Math.sin(elapsedTime * speedFactor))); // Clamp y between 2 and 4
+    const newZ = target.z + radius * Math.sin(elapsedTime * speedFactor);
+
+    // Update camera position and lookAt directly
+    camera.position.set(newX, newY, newZ);
+    camera.lookAt(target);
+  });
+
+  return null;
+};
+
 export const Fiber = () => {
     
     
     return (
       <Canvas
-        // camera={{ position: [10, 5, 15], fov: 45 }}
+        camera={{ position: [10, 2, 0], fov: 70 }}
         style={{ height: "100%" }}
       >
         <color attach="background" args={['#050505']} />
@@ -319,7 +343,7 @@ export const Fiber = () => {
         <LowerPodium />
         <LowerLight />
         <LowerFloor />
-        <CameraControls makeDefault />
+        <CameraControls  />
       </Canvas>
     );
   };
